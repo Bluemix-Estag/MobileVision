@@ -1,0 +1,381 @@
+[
+    {
+        "id": "da0742d.978a74",
+        "type": "http in",
+        "z": "253d1e6d.0e5f62",
+        "name": "",
+        "url": "/reconPost",
+        "method": "post",
+        "upload": true,
+        "swaggerDoc": "",
+        "x": 111,
+        "y": 155.63636016845703,
+        "wires": [
+            [
+                "1adb1f6b.a35a01"
+            ]
+        ]
+    },
+    {
+        "id": "1adb1f6b.a35a01",
+        "type": "change",
+        "z": "253d1e6d.0e5f62",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "req.files[0].buffer",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "params",
+                "pt": "msg",
+                "to": "{\"classifier_ids\":\"Documentos_728640485\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320.6363525390625,
+        "y": 157.90908813476562,
+        "wires": [
+            [
+                "68b5d4a5.5e241c"
+            ]
+        ]
+    },
+    {
+        "id": "68b5d4a5.5e241c",
+        "type": "visual-recognition-v3",
+        "z": "253d1e6d.0e5f62",
+        "name": "",
+        "apikey": "",
+        "image-feature": "classifyImage",
+        "lang": "en",
+        "x": 723.8182373046875,
+        "y": 209.09091186523438,
+        "wires": [
+            [
+                "6d1b48e3.12a54"
+            ]
+        ]
+    },
+    {
+        "id": "6d1b48e3.12a54",
+        "type": "switch",
+        "z": "253d1e6d.0e5f62",
+        "name": "",
+        "property": "watsonerror",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nnull"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 2,
+        "x": 898.7272338867188,
+        "y": 182.81816864013672,
+        "wires": [
+            [
+                "972b236a.d7a5c8"
+            ],
+            [
+                "c5f498e3.4507a8"
+            ]
+        ]
+    },
+    {
+        "id": "72f81e05.34d9e8",
+        "type": "switch",
+        "z": "253d1e6d.0e5f62",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 2,
+        "x": 619,
+        "y": 126.63636016845703,
+        "wires": [
+            [
+                "e010d131.20c1e"
+            ],
+            [
+                "68b5d4a5.5e241c"
+            ]
+        ]
+    },
+    {
+        "id": "972b236a.d7a5c8",
+        "type": "switch",
+        "z": "253d1e6d.0e5f62",
+        "name": "",
+        "property": "watsonerror",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "Image size limit exceeded",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 2,
+        "x": 1005.9999389648438,
+        "y": 117.90909576416016,
+        "wires": [
+            [
+                "12b41fc.8f4c2e"
+            ],
+            [
+                "5162eb84.e0e674"
+            ]
+        ]
+    },
+    {
+        "id": "c5f498e3.4507a8",
+        "type": "function",
+        "z": "253d1e6d.0e5f62",
+        "name": "",
+        "func": "if(msg.result.images[0].classifiers.length !== 0){\nmsg.payload = {\nurl: msg.result.images[0].resolved_url,\ntype: msg.result.images[0].classifiers[0].classes[0].class,\nscore: msg.result.images[0].classifiers[0].classes[0].score,\nbuffer: msg.payload,\ntime: Math.floor(Date.now())\n};\n}else{\n  msg.payload = {\n      url: msg.result.images[0].resolved_url,\n      type: \"Não Reconhecido\",\n      score: \"0.0\",\n      buffer: msg.payload\n};  \n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1022.1818237304688,
+        "y": 188.72725677490234,
+        "wires": [
+            [
+                "1df4229e.41cf05"
+            ]
+        ]
+    },
+    {
+        "id": "a15bbc1d.ae9848",
+        "type": "change",
+        "z": "253d1e6d.0e5f62",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "req.query.imagem",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "params",
+                "pt": "msg",
+                "to": "{\"classifier_ids\":\"\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 469.72723388671875,
+        "y": 126.09088897705078,
+        "wires": [
+            [
+                "72f81e05.34d9e8"
+            ]
+        ]
+    },
+    {
+        "id": "e010d131.20c1e",
+        "type": "function",
+        "z": "253d1e6d.0e5f62",
+        "name": "",
+        "func": "msg.payload = {\nurl: \"http://www.brandify.com/small-data-big-deal/img/animated/5-Error404.gif\",\ntype: \"Problema com a imagem enviada\",\nscore: \"Problema com a imagem enviada\"\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 905.1818237304688,
+        "y": 68,
+        "wires": [
+            [
+                "1df4229e.41cf05"
+            ]
+        ]
+    },
+    {
+        "id": "12b41fc.8f4c2e",
+        "type": "change",
+        "z": "253d1e6d.0e5f62",
+        "name": "",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "result",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1165.6364135742188,
+        "y": 99.8182144165039,
+        "wires": [
+            [
+                "478e1756.f609b8"
+            ]
+        ]
+    },
+    {
+        "id": "5162eb84.e0e674",
+        "type": "change",
+        "z": "253d1e6d.0e5f62",
+        "name": "",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "result",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1165.3635864257812,
+        "y": 135.09090423583984,
+        "wires": [
+            [
+                "e010d131.20c1e"
+            ]
+        ]
+    },
+    {
+        "id": "1df4229e.41cf05",
+        "type": "http response",
+        "z": "253d1e6d.0e5f62",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1463,
+        "y": 69.63636779785156,
+        "wires": []
+    },
+    {
+        "id": "9e025a02.ca79a8",
+        "type": "switch",
+        "z": "253d1e6d.0e5f62",
+        "name": "",
+        "property": "req.query.imagem",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "null"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 2,
+        "x": 260.3636169433594,
+        "y": 119.45453643798828,
+        "wires": [
+            [
+                "e010d131.20c1e"
+            ],
+            [
+                "a15bbc1d.ae9848"
+            ]
+        ]
+    },
+    {
+        "id": "478e1756.f609b8",
+        "type": "function",
+        "z": "253d1e6d.0e5f62",
+        "name": "",
+        "func": "msg.payload = {\nurl: \"http://www.brandify.com/small-data-big-deal/img/animated/5-Error404.gif\",\ntype: \"Imagem muito Grande [>2mb]\",\nscore: \"Imagem muito Grande [>2mb]\"\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1329.9090576171875,
+        "y": 99.54546356201172,
+        "wires": [
+            [
+                "1df4229e.41cf05"
+            ]
+        ]
+    },
+    {
+        "id": "3fd0d6d4.5e642a",
+        "type": "template",
+        "z": "253d1e6d.0e5f62",
+        "name": "HTML CLEAN",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<head>\n    <title>Visual Recognition</title>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">\n    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js\"></script>\n    <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>\n    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css\">\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js\"></script>\n\n    <style>\n        .divizinea {\n            background: linear-gradient(to right, rgba(0, 0, 0, 0.85) 0, transparent 100%);\n        }\n        \n        .divizonia {\n            background: url(\"https://www.ibm.com/watson/br-pt/assets/img/logos/IBM_Watson_avatar_simple_b.svg\") no-repeat;\n            background-position: right center;\n            margin-left: 0 !important;\n            margin-right: 0 !important;\n        }\n        \n        #eye {\n            background: #e0e0d1;\n            width: 120px;\n            height: 120px;\n            border-radius: 50%;\n            margin: 34px auto;\n            position: relative\n        }\n        \n        #eye i {\n            background: #4f5d73;\n            width: 82px;\n            height: 82px;\n            border-radius: 50%;\n            display: inline-block;\n            margin: 19px;\n            box-shadow: inset 0 4px 0 rgba(0, 0, 0, .18), inset 0 -2px 0 rgba(0, 0, 0, .18), 0 4px 0 rgba(0, 0, 0, .18);\n            -webkit-transition: all .43s cubic-bezier(.73, .19, .21, 1.7)\n        }\n        \n        #eye i i {\n            background: rgba(0, 0, 0, .07);\n            width: 86%;\n            height: 86%;\n            margin: 7%;\n            box-shadow: inset 0 3px 0 rgba(0, 0, 0, .18), inset 0 -2px 0 rgba(0, 0, 0, .18)\n        }\n        \n        #eye i i i i {\n            background: #65a192;\n            width: 80%;\n            height: 80%;\n            margin: 10%;\n            overflow: hidden;\n            position: relative\n        }\n        \n        #eye u {\n            background: #3f4755;\n            width: 60%;\n            height: 60%;\n            border-radius: 50%;\n            position: absolute\n        }\n        \n        #eye i i i i:before,\n        #eye u:after {\n            content: '';\n            position: absolute;\n            width: 140%;\n            height: 140%;\n            background: rgba(255, 255, 255, .12);\n            border-radius: 100%;\n            top: -70%;\n            z-index: 2\n        }\n        \n        #eye u:after {\n            width: 25%;\n            height: 25%;\n            background: #d3d2d2;\n            top: 0;\n            left: 60%\n        }\n        \n        #eye s {\n            position: absolute;\n            width: 200%;\n            height: 10%;\n            z-index: 3;\n            background: #3f4755;\n            border-radius: 0 0 100% 100%;\n            left: -50%;\n            top: -10%;\n            box-shadow: inset 0 -7px 7px rgba(0, 0, 0, .18);\n            -webkit-animation: blink 10s infinite\n        }\n        \n        @-webkit-keyframes blink {\n            20%,\n            70%,\n            74% {\n                height: 120%\n            }\n            18%,\n            22%,\n            68%,\n            72%,\n            76% {\n                height: 10%\n            }\n        }\n        \n        #eye:hover i i {\n            width: 90%;\n            height: 90%;\n            margin: 5%\n        }\n        \n         ::-webkit-input-placeholder {\n            /* WebKit, Blink, Edge */\n            color: #777;\n        }\n        \n         :-moz-placeholder {\n            /* Mozilla Firefox 4 to 18 */\n            color: #777;\n            opacity: 1;\n        }\n        \n         ::-moz-placeholder {\n            /* Mozilla Firefox 19+ */\n            color: #777;\n            opacity: 1;\n        }\n        \n         :-ms-input-placeholder {\n            /* Internet Explorer 10-11 */\n            color: #777;\n        }\n        \n         ::-ms-input-placeholder {\n            /* Microsoft Edge */\n            color: #777;\n        }\n        \n        .inputfile {\n            width: 0.1px;\n            height: 0.1px;\n            opacity: 0;\n            overflow: hidden;\n            position: absolute;\n            z-index: -1;\n        }\n        \n        @media screen and (max-width:480px) {\n            .titulomobile {\n                font-size: 2.5rem !important;\n            }\n        }\n        \n        #urlenter:focus {\n            border-bottom: 1px solid #4178BE;\n            box-shadow: 0 1px 0 0 #4178BE;\n        }\n\n    </style>\n\n    <script>\n        function createXHR() {\n            if (typeof XMLHttpRequest != 'undefined') {\n                return new XMLHttpRequest();\n            } else {\n                try {\n                    return new ActiveXObject('Msxml2.XMLHTTP');\n                } catch (e) {\n                    try {\n                        return new ActiveXObject('Microsoft.XMLHTTP');\n                    } catch (e) {}\n                }\n            }\n            return null;\n        }\n\n        function xhrPost(url, data, callback, errback) {\n            var xhr = new createXHR();\n            xhr.open(\"POST\", url, true);\n            xhr.setRequestHeader(\"Content-type\", \"application/x-www-form-urlencoded\");\n            xhr.onreadystatechange = function() {\n                if (xhr.readyState == 4) {\n                    if (xhr.status == 200) {\n                        callback((xhr.responseText));\n                    } else {\n                        errback('service not available');\n                    }\n                }\n            };\n            xhr.timeout = 100000;\n            xhr.ontimeout = errback;\n            xhr.send((data));\n        }\n\n        function xhrAttach(url, data, callback, errback) {\n            var xhr = new createXHR();\n            xhr.open(\"POST\", url, true);\n            //            xhr.responseType = \"arraybuffer\";\n            //\txhr.setRequestHeader(\"Content-type\", false);\n            xhr.onreadystatechange = function() {\n                if (xhr.readyState == 4) {\n                    if (xhr.status == 200) {\n                        callback(JSON.parse(xhr.responseText));\n                    } else {\n                        errback('service not available');\n                    }\n                }\n            };\n            xhr.timeout = 1000000;\n            xhr.ontimeout = errback;\n            xhr.send(data);\n        }\n\n        function sendTextNew(txt) {\n            var xhr = new XMLHttpRequest();\n            xhr.open('POST', '/reconPost', true);\n            xhr.responseType = 'arraybuffer';\n            xhr.onload = function(e) {\n                if (this.status == 200) {\n                    console.log(this.response);\n                }\n            };\n            xhr.send(txt);\n        }\n\n        function xhrGet(url, callback, errback) {\n            var xhr = new createXHR();\n            xhr.open(\"GET\", url, true);\n            xhr.onreadystatechange = function() {\n                if (xhr.readyState == 4) {\n                    if (xhr.status == 200) {\n                        callback(xhr.responseText);\n                    } else {\n                        errback('service not available');\n                    }\n                }\n            };\n\n            xhr.timeout = 100000;\n            xhr.ontimeout = errback;\n            xhr.send();\n        }\n\n\n\n        $(document).ready(function() {\n\n            $('#campo_url').on('change', function() {\n                alert('mudou');\n                $('url_campo').addClass('hide');\n            })\n\n\n            $(\".sendImage\").on(\"click\", function() {\n                $('.modal').modal();\n                $('#modal1').modal(\"open\");\n            })\n\n            $('#fechar-modal').on(\"click\", function() {\n                var elemento = '<div class=\"valign-center progress\" id=\"sumir\"><div class=\"indeterminate\"></div></div><div id=\"eye\"><i><i><i><i><s></s><u></u></i></i></i></i></div>'\n                $('#content-holder').html(elemento);\n            })\n\n            $(\"#selectt\").on(\"change\", function() {\n                var valor = $(\"#selectt\").val();\n                if (valor == \"envArquivo\") {\n                    $(\"#inputUrl\").css(\"display\", \"none\")\n                    $(\"#inputArquivo\").css(\"display\", \"inline-block\")\n                } else if (valor == \"envUrl\") {\n                    $(\"#inputArquivo\").css(\"display\", \"none\")\n                    $(\"#inputUrl\").css(\"display\", \"inline-block\")\n                }\n            })\n\n            $(\"#urlInput\").click(function() {\n                console.log(\"teste\");\n                $(\"#url_campo\").trigger('click');\n            })\n            $(\"#url_campo\").on(\"change\", function() {\n                $('#sendArq').prop('disabled', false);\n            })\n            $(\"#urlenter\").on(\"change\", function() {\n                $('#sendUrl').prop('disabled', false);\n            })\n\n            var mouseX = 10,\n                mouseY = 10,\n                limitX = 20,\n                limitY = 20;\n            $(window).mousemove(function(e) {\n                var offset = $('#eye i i i i').offset();\n                mouseX = Math.min(e.pageX - offset.left, limitX);\n                mouseY = Math.min(e.pageY - offset.top, limitY);\n                if (mouseX < 0) mouseX = 0;\n                if (mouseY < 0) mouseY = 0;\n            });\n\n            var follower = $('#eye u'),\n                xp = 0,\n                yp = 0,\n                loop = setInterval(function() {\n                    xp += (mouseX - xp) / 1;\n                    yp += (mouseY - yp) / 1;\n                    follower.css({\n                        left: xp,\n                        top: yp\n                    });\n\n                }, 30);\n\n            $(\"#sendUrl\").on('click', function() {\n                var input = $('#urlenter').val();\n                var http = new XMLHttpRequest();\n\n                xhrGet(\"/reconGet?imagem=\" + input, function(resultado) {\n                    $('#content-holder').html('');\n                    result = JSON.parse(resultado);\n                    url = result.url;\n                    console.log(url)\n\n                    console.log(typeof result);\n                    console.log(result);\n\n                    var modal = $('#content-holder');\n                    var innertable = '<div class=\"center-align\"><div class=\"\"><img src=\"\" id=\"image\" height=\"175\"/></div></div><table><thead><tr><th style=\"text-align:center\">Tipo de documento</th><th style=\"text-align:center\">Confidence</th></tr>' +\n                        '</thead><tr><td style=\"text-align:center\"><b id=\"type-form\" >' + result.type + '</b></td><td style=\"text-align:center\"><i id=\"score-form\" >' + result.score + '</i></td></tr></table>';\n\n                    modal.append(innertable);\n                    var image = document.getElementById(\"image\");\n                    image.src = url;\n                }, function(err) {\n                    console.log(err);\n                })\n            })\n            $('#sendArq').on('click', function() {\n                var formData = new FormData();\n                var input = document.getElementById('url_campo');\n                var file = input.files[0]\n                formData.append(\"file\", file);\n                //                window.location.href = \"https://recodoc.mybluemix.net/reconhecer?imagem=\" + valor;\n                var http = new XMLHttpRequest();\n                //                http.onreadystatechange\n                //\n                //                sendTextNew(formData);\n\n\n                xhrAttach('/reconPost', formData, function(result) {\n                    $('#content-holder').html('');\n                    if (result.buffer != undefined) {\n                        console.log(result.buffer)\n                        input = new Uint8Array(result.buffer.data);\n\n                        var str = '';\n                        for (var i = 0; i < input.byteLength; i++)\n                            str = str + String.fromCharCode(input[i]);\n\n                        url = 'data:image/png;base64,' + btoa(str);\n\n                    } else {\n                        url = result.url;\n                    }\n                    console.log(url)\n\n                    console.log(typeof result);\n                    console.log(result);\n\n                    var modal = $('#content-holder');\n                    var innertable = '<div class=\"center-align\"><div class=\"\"><img src=\"\" id=\"image\" height=\"175\"/></div></div><table><thead><tr><th style=\"text-align:center\">Tipo de documento</th><th style=\"text-align:center\">Confidence</th></tr>' +\n                        '</thead><tr><td style=\"text-align:center\"><b id=\"type-form\" >' + result.type + '</b></td><td style=\"text-align:center\"><i id=\"score-form\" >' + result.score + '</i></td></tr></table>';\n\n                    modal.append(innertable);\n                    var image = document.getElementById(\"image\");\n                    image.src = url;\n\n\n                }, function(err) {\n                    console.log(err);\n                })\n            })\n\n\n        })\n\n    </script>\n\n</head>\n\n<body class=\"divizinea\" style=\"background-color:rgb(0, 66, 102)\" id=\"body\">\n    <div class=\"row divizonia\" style=\"margin-bottom:0 !important\">\n\n        \n        \n\n        <!--   NAV     -->\n        <div class=\"col s12 12 l12 valign-wrapper\" style=\"height:7%; background-color:rgb(255,255,255);\">\n            <img src=\"https://www.ibmchefwatson.com/assets/images/8b5fdd11.IBM_Logo_Dark.png\" style=\"height:70%\">\n        </div>\n        <!--   NAV     -->\n\n\n\n\n        <!--   CENTRO     -->\n        <div class=\"col s12 12 l12 bodye\" style=\"height:88%;\">\n            <div class=\"row\" style=\"height:90%; \">\n                <div class=\"col s12 m12 l12 \" style=\"height:6%; \"></div>\n                <div class=\"col s10 m8 l8 offset-s1 offset-m2 offset-l2 card-panel hoverable\" style=\"height:96%; background-color:rgb(255,255,255);background-color:rgba(255,255,255, 0.6);\">\n\n                    <div class=\"center-align\" style=\"margin:2%\">\n                        <h2 class=\"titulomobile\">Mobile Vision</h2>\n                        <div id=\"eye\" style=\"z-index:1000\">\n                            <i>\n                                <i>\n                                    <i>\n                                        <i>\n                                            <s></s>\n                                            <u></u>\n                                        </i>\n                            </i>\n                            </i>\n                            </i>\n                        </div>\n                    </div>\n\n                    <div class=\"center-align\">\n                        <div class=\"row\" style=\"margin-bottom:0;\">\n                            <div class=\"col s12 l4 offset-l4\">\n                                <select id=\"selectt\" style=\"display: inline-block; margin-bottom: 10px;\">\n                            <option value=\"\" disabled selected>Escolher modo de enviar imagem</option>\n                            <option value=\"envArquivo\">Enviar arquivo</option>\n                            <option value=\"envUrl\">Enviar URL</option>\n                        </select>\n                            </div>\n                        </div>\n\n                        <div id=\"inputArquivo\" style=\"display:none\">\n                            <button value=\"Enviar Arquivo\" class=\"btn btn-success btn-small\" style=\"color:#fff; background-color:#4178BE\" id=\"urlInput\"><b>Enviar Arquivo</b></button><br><br>\n                            <input type=\"file\" class=\"inputfile btn btn-success btn-small\" id=\"url_campo\">\n                            <button value=\"Reconhecer\" class=\"btn btn-success btn-small sendImage\" style=\"color:#fff; background-color:#4178BE\" id=\"sendArq\" disabled><b>Reconhecer</b></button>\n                        </div>\n\n                        <div id=\"inputUrl\" style=\"display:none\" class=\"row\">\n                            <div class=\"input-field white col s12 m12 l12\" style=\"margin-bottom:10px\">\n                                <input placeholder=\"Digite a URL da imagem aqui\" id=\"urlenter\" type=\"text\" class=\"validate\" style=\"margin-bottom:0.5rem; height:1.5rem; margin-top:0.5rem;\">\n                            </div>\n                            <button value=\"Reconhecer\" class=\"btn btn-success btn-small sendImage\" style=\"color:#fff; background-color:#4178BE\" id=\"sendUrl\" disabled><b>Reconhecer</b></button>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"col s12 m12 l12 \" style=\"height:0%; \"></div>\n            </div>\n        </div>\n        <!--   CENTRO     -->\n\n\n\n        <!--RODAPÉ-->\n        <div class=\"col s12 12 l12 valign-wrapper\" style=\"height:5%;background-color:rgb(255,255,255);\">\n            <h8 style=\"color:#a1a1a1;\">© 2017 Code Bakery</h8>\n        </div>\n    </div>\n    <!--RODAPÉ-->\n\n\n\n    <!--MODAL-->\n    <div id=\"modal1\" class=\"modal modal-fixed-footer\">\n        <div class=\"modal-content\">\n            <h4 style=\"text-align:center\">Mobile Vision</h4>\n            <div class=\"\" id=\"content-holder\">\n                <div class=\"valign-center progress\" id=\"sumir\">\n                    <div class=\"indeterminate\"></div>\n                </div>\n                <div id=\"eye\">\n                    <i>\n                                <i>\n                                    <i>\n                                        <i>\n                                            <s></s>\n                                            <u></u>\n                                        </i>\n                    </i>\n                    </i>\n                    </i>\n                </div>\n            </div>\n        </div>\n        <div class=\"modal-footer\">\n            <a href=\"#!\" class=\"modal-action modal-close waves-effect waves-green btn-flat \" style=\"color:#fff; background-color:#4178BE\" id=\"fechar-modal\">Fechar</a>\n        </div>\n    </div>\n    <!--MODAL-->\n\n\n\n</body>\n",
+        "output": "str",
+        "x": 436.6666259765625,
+        "y": 194.6363525390625,
+        "wires": [
+            [
+                "1df4229e.41cf05"
+            ]
+        ]
+    },
+    {
+        "id": "216561cd.20d42e",
+        "type": "http in",
+        "z": "253d1e6d.0e5f62",
+        "name": "",
+        "url": "/reconGet",
+        "method": "get",
+        "upload": true,
+        "swaggerDoc": "",
+        "x": 111.18182373046875,
+        "y": 119.9090805053711,
+        "wires": [
+            [
+                "9e025a02.ca79a8"
+            ]
+        ]
+    },
+    {
+        "id": "2ae74ae6.1bc706",
+        "type": "http in",
+        "z": "253d1e6d.0e5f62",
+        "name": "",
+        "url": "/reconhecer",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 112,
+        "y": 192.63636016845703,
+        "wires": [
+            [
+                "3fd0d6d4.5e642a"
+            ]
+        ]
+    }
+]
