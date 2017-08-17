@@ -18,7 +18,7 @@ Após entrar no aplicativo, selecione a opção que preferir, e envie o arquivo 
 ![picture alt](http://www.brightlightpictures.com/assets/images/portfolio/thethaw_header.jpg "Opções disponíveis")
 <p align="center">Imagem 2: Opções disponíveis</p>
 
-Espere o resultado.
+Espere a imagem ser processada.
 ![picture alt](http://www.brightlightpictures.com/assets/images/portfolio/thethaw_header.jpg "Resultado")
 <p align="center">Imagem 3: Resultado</p>
 
