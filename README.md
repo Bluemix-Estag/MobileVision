@@ -10,15 +10,15 @@ MobileVision é um aplicativo de demonstração que reconhece documentos (RG, CN
 * Node-Red: O aplicativo utiliza tem **Node-Red** como seu *back-end*.
 
 ## Como Utilizar
-Para utilizar o aplicativo entre no *link*: [mobilevision.mybluemix.net/reconhecer](mobilevision.mybluemix.net/reconhecer)
+Para utilizar o aplicativo entre no *link*: [mobilevision.mybluemix.net/reconhecer](mobilevision.mybluemix.net/reconhecer).
 ![picture alt](http://www.brightlightpictures.com/assets/images/portfolio/thethaw_header.jpg "Página inicial")
 <p align="center">Imagem 1: Página incial</p>
 
-Após entrar no aplicativo, selecione a opção que preferir, e envie o arquivo ou URL
+Após entrar no aplicativo, selecione a opção que preferir, e envie o arquivo ou URL.
 ![picture alt](http://www.brightlightpictures.com/assets/images/portfolio/thethaw_header.jpg "Opções disponíveis")
 <p align="center">Imagem 2: Opções disponíveis</p>
 
-Espere o resultado
+Espere o resultado.
 ![picture alt](http://www.brightlightpictures.com/assets/images/portfolio/thethaw_header.jpg "Resultado")
 <p align="center">Imagem 3: Resultado</p>
 
