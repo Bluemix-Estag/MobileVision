@@ -10,17 +10,22 @@ MobileVision é um aplicativo de demonstração que reconhece documentos (RG, CN
 * Node-Red: O aplicativo utiliza tem **Node-Red** como seu *back-end*.
 
 ## Como Utilizar
-Para utilizar o aplicativo entre no *link*: [mobilevision.mybluemix.net/reconhecer](mobilevision.mybluemix.net/reconhecer).
+1. Para utilizar o aplicativo entre no *link*: [mobilevision.mybluemix.net/reconhecer](mobilevision.mybluemix.net/reconhecer).
 <div align="center">
 <img src="https://user-images.githubusercontent.com/25907136/29436447-efecf06c-8381-11e7-92eb-2c915006cd6f.jpg" alt="Página inicial">
 <p>Imagem 1: Página incial</p></div>
 
-Após entrar no aplicativo, selecione a opção que preferir, e envie o arquivo ou URL.
+2. Após entrar no aplicativo, selecione a opção que preferir.
 <div align="center">
 <img src="https://user-images.githubusercontent.com/25907136/29436448-f1e9086a-8381-11e7-88df-6f851a59c95c.jpg" alt="Opções disponíveis">
 <p>Imagem 2: Opções disponíveis</p></div>
 
-Espere a imagem ser processada.
+3. Envie o arquivo ou URL
+<div align="center">
+<img src="https://user-images.githubusercontent.com/25907136/29436448-f1e9086a-8381-11e7-88df-6f851a59c95c.jpg" alt="Enviando um arquivo" width="50%"><img src="https://user-images.githubusercontent.com/25907136/29436448-f1e9086a-8381-11e7-88df-6f851a59c95c.jpg" alt="Enviando um arquivo" width="50%">
+<p>Imagem 2: Enviando um arquivo</p></div>
+
+4. Espere a imagem ser processada.
 <div align="center">
 <img src="https://user-images.githubusercontent.com/25907136/29436449-f4411fda-8381-11e7-99ae-e0974e966812.jpg" alt="Resultado">
 <p>Imagem 3: Resultado</p></div>
