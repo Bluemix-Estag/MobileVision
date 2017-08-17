@@ -13,17 +13,17 @@ MobileVision é um aplicativo de demonstração que reconhece documentos (RG, CN
 Para utilizar o aplicativo entre no *link*: [mobilevision.mybluemix.net/reconhecer](mobilevision.mybluemix.net/reconhecer).
 <div align="center">
 <img src="http://www.brightlightpictures.com/assets/images/portfolio/thethaw_header.jpg" alt="Página inicial">
-Imagem 1: Página incial</div>
+<p>Imagem 1: Página incial</p></div>
 
 Após entrar no aplicativo, selecione a opção que preferir, e envie o arquivo ou URL.
 <div align="center">
 <img src="http://www.brightlightpictures.com/assets/images/portfolio/thethaw_header.jpg" alt="Opções disponíveis">
-Imagem 2: Opções disponíveis</div>
+<p>Imagem 2: Opções disponíveis</p></div>
 
 Espere a imagem ser processada.
 <div align="center">
 <img src="http://www.brightlightpictures.com/assets/images/portfolio/thethaw_header.jpg" alt="Resultado">
-Imagem 3: Resultado</div>
+<p>Imagem 3: Resultado</p></div>
 
 ## Como criar uma demo em sua conta do Bluemix:
 
