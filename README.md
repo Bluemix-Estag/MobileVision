@@ -10,25 +10,36 @@ MobileVision é um aplicativo de demonstração que reconhece documentos (RG, CN
 * Node-Red: O aplicativo utiliza tem **Node-Red** como seu *back-end*.
 
 ## Como Utilizar
-1. Para utilizar o aplicativo entre no *link*: [mobilevision.mybluemix.net/reconhecer](mobilevision.mybluemix.net/reconhecer).
-<div align="center">
+(Clique nas setas para ver as imagens)
+
+<details>
+   <summary>1. Para utilizar o aplicativo entre no *link*: [mobilevision.mybluemix.net/reconhecer](mobilevision.mybluemix.net/reconhecer).</b></summary>
+   <div align="center">
 <img src="https://user-images.githubusercontent.com/25907136/29436447-efecf06c-8381-11e7-92eb-2c915006cd6f.jpg" alt="Página inicial">
 <p>Imagem 1: Página incial</p></div>
+</details>
 
-2. Após entrar no aplicativo, selecione a opção que preferir.
-<div align="center">
+<details>
+   <summary>2. Após entrar no aplicativo, selecione a opção que preferir.</summary>
+   <div align="center">
 <img src="https://user-images.githubusercontent.com/25907136/29436448-f1e9086a-8381-11e7-88df-6f851a59c95c.jpg" alt="Opções disponíveis">
 <p>Imagem 2: Opções disponíveis</p></div>
+</details>
 
-3. Envie o arquivo ou URL
-<div align="center">
+<details>
+   <summary>3. Envie o arquivo ou URL</summary>
+   <div align="center">
 <img src="https://user-images.githubusercontent.com/25907136/29436856-13b55262-8384-11e7-9ff3-c01a6fcef414.jpg" alt="Enviando um arquivo" width="50%"><img src="https://user-images.githubusercontent.com/25907136/29436859-19a610b2-8384-11e7-94fe-9dca79027c17.jpg" alt="Enviando uma URL" width="50%">
 <p>Imagem 3: Enviando um arquivo (esquerda) e uma URL (direita)</p></div>
+</details>
 
-4. Espere a imagem ser processada.
-<div align="center">
+<details>
+   <summary>4. Espere a imagem ser processada.</summary>
+   <div align="center">
 <img src="https://user-images.githubusercontent.com/25907136/29436449-f4411fda-8381-11e7-99ae-e0974e966812.jpg" alt="Resultado">
 <p>Imagem 4: Resultado</p></div>
+</details>
+
 
 ## Como criar uma demo em sua conta do Bluemix:
 
